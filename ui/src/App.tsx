@@ -1,21 +1,18 @@
-import SwapCard from "@/components/swap-card";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { WagmiProvider } from "wagmi";
-import { wagmiConfig } from "./wagmi-config";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-const queryClient = new QueryClient();
+import HomePage from "./pages/home-page";
+import PortfolioPage from "./pages/portfolio-page";
+import SwapPage from "./pages/swap-page";
 
 function App() {
   return (
-    <>
-      <main className="w-full h-screen flex flex-row items-center justify-center">
-        <WagmiProvider config={wagmiConfig}>
-          <QueryClientProvider client={queryClient}>
-            <SwapCard />
-          </QueryClientProvider>
-        </WagmiProvider>
-      </main>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path="/swap" element={<SwapPage />} />
+      </Routes>
+    </Router>
   );
 }
 

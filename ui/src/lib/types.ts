@@ -1,15 +1,23 @@
+export type UserAsset = {
+  token: string;
+  chain: string;
+  balance: number;
+  balanceUSD: number;
+};
+
+export type UserTransaction = UserTransactionBase<"receive" | "send">;
+type UserTransactionBase<T extends "receive" | "send"> = {
+  type: T;
+  txHash: string;
+  timestamp: Date;
+  token: string;
+  chain: string;
+  amount: number;
+  amountUSD: number;
+  address: string;
+}
+
 export type TokenBoxVariant = {
   type: "from" | "to";
-};
-export type Nullable<T> = T | null;
-export type ChainId = string;
-export type Token = {
-  chainId?: ChainId;
-  address: string;
-  decimals: number;
-  symbol: string;
-  name: string;
-  logo?:string;
-  price?:number;
 };
 

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useSwapStore } from "@/stores/swap-store";
 import { useState } from "react";
+import ConnectWallet from "../connect-wallet";
 
 const FromAddress = () => {
   const {
@@ -42,13 +43,7 @@ const FromAddress = () => {
             )}
           </>
         ) : (
-          <Button
-            className="w-32 rounded-full"
-            size={"sm"}
-            onClick={handleConnect}
-          >
-            Connect Wallet
-          </Button>
+         <ConnectWallet />
         )}
       </div>
     </>

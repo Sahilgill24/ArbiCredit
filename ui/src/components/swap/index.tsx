@@ -14,7 +14,7 @@ import { FromAddress, SwapIcon, ToAddress } from "./swap-user-data";
 import TokenBox from "./token-box";
 import { ArrowUpDown, CheckCheckIcon } from "lucide-react";
 import { Button } from "../ui/button";
-import ConnectWallet from "./connect-wallet";
+
 import { useToast } from "../ui/use-toast";
 import { useState } from "react";
 import { CopyAddress } from "../portfolio/commons";
@@ -49,7 +49,7 @@ const Swap = () => {
         className={`z-50 bg transition-all bg-gradient-to-bl from-accent/40 from-[-20%] via-card to-muted/40 duration-500`}
       >
         <CardHeader className="flex flex-row items-center mb-2 justify-between">
-          <CardTitle className="font-bold">Swap</CardTitle>
+          <CardTitle className="font-bold">Lend</CardTitle>
           <div className="space-x-2">
             <Settings />
             <TransactionHistory />
@@ -63,21 +63,19 @@ const Swap = () => {
           <TokenBox type="to" />
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-          {!walletConnected ? (
-            <ConnectWallet />
-          ) : (
-            <Button
-              className="w-full text-base"
-              size={"lg"}
-              variant={"expandIcon"}
-              iconPlacement="right"
-              Icon={ArrowUpDown}
-              disabled={!swapEnabled}
-              onClick={handleSwapClicked}
-            >
-              Swap
-            </Button>
-          )}
+
+          <Button
+            className="w-full text-base"
+            size={"lg"}
+            variant={"expandIcon"}
+            iconPlacement="right"
+            Icon={ArrowUpDown}
+            disabled={!swapEnabled}
+            onClick={handleSwapClicked}
+          >
+            Lend
+          </Button>
+
           {txHash && (
             <Alert className="">
               <AlertTitle className="text-primary brightness-125 font-bold inline-flex gap-1 items-center">

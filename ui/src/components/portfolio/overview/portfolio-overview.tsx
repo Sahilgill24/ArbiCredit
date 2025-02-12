@@ -12,6 +12,8 @@ import { PortfolioOverviewSkeleton } from "./loading-skeletons";
 import { Badge } from "@/components/ui/badge";
 import { usePortfolioStore } from "@/stores/portfolio-store";
 import { useState } from "react";
+import { useAccount, useBalance } from "wagmi";
+
 
 const PortfolioOverview = () => {
   const { assets, isLoading } = usePortfolioStore();
@@ -20,7 +22,15 @@ const PortfolioOverview = () => {
     0
   );
   const tokens = assets.map((asset) => asset.token);
-  
+  const account = useAccount();
+  const balance = useBalance({ address: account.address });
+
+  console.log(balance.data?.value);
+  const balanceinETH = balance.data?.value ? BigInt(balance.data.value) : BigInt(0);
+  const balanceinUSD = balanceinETH / BigInt(10 ** 16);
+  const finalbal = (balanceinUSD)
+
+
   // TODO: Update it dynamically
   const [pnlPercentageChange, setPnlPercentageChange] = useState(0.08);
 
@@ -31,7 +41,7 @@ const PortfolioOverview = () => {
           Your Portfolio
         </CardDescription>
         <CardTitle>
-          <CopyAddress address="0x1234567890" />
+          <CopyAddress address={account.address} />
         </CardTitle>
       </CardHeader>
       {isLoading ? (
@@ -42,7 +52,7 @@ const PortfolioOverview = () => {
         <>
           <CardContent>
             <CardTitle className="text-6xl font-extrabold mb-2">
-              {formatToUSD(totalBalanceUSD)}
+              {finalbal ? formatToUSD(finalbal) : "0"}
             </CardTitle>
             <PNLPercentage
               totalAmount={totalBalanceUSD}

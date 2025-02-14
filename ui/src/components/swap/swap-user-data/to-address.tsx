@@ -24,24 +24,14 @@ const ToAddress = () => {
 
   return (
     <div className="flex flex-row justify-between items-end">
-      <p className="text-lg">To</p>
+      <p className="text-lg">Lend</p>
       <Dialog>
         <DialogTrigger disabled={!isToTokenSelected}>
-          {verified ? (
-            <VerifiedSwapAddress address={address} />
-          ) : (
+        
+            
+          
 
-            <Button
-              disabled={!isToTokenSelected}
-              className="rounded-full w-32"
-              size="sm"
-            >
-              <PlusIcon className="w-4 h-4 mr-1" />
-              Add Address
-            </Button>
-          )
-
-          }
+          
         </DialogTrigger>
         <DialogContent className="bg-card/20 *:bg-card/20 backdrop-blur-md">
           <DialogHeader>
@@ -51,13 +41,7 @@ const ToAddress = () => {
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-row gap-2">
-            <Input
-              placeholder="Enter Address"
-              className="flex-1"
-              onChange={(e) => {
-                setAddress(e.target.value);
-              }}
-            />
+            
           </div>
           {verificationError ? (
             <Alert
@@ -68,7 +52,7 @@ const ToAddress = () => {
               <AlertDescription>Invalid {toChain} Address</AlertDescription>
             </Alert>
           ) : verified ? (
-            <Alert className="transition-all duration-150" variant="success">
+            <Alert className="transition-all duration-150">
               <CheckCircle className="w-4 h-4" />
               <AlertDescription className="text-sm">
                 The address is a valid {toChain} address{" "}

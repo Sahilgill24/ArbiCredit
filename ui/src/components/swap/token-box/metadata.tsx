@@ -73,7 +73,7 @@ const Balance = ({ type }: TokenBoxVariant) => {
       ) : (
         type === "from" && (
           <p className="text-sm font-medium text-muted-foreground">
-            Balance:{" "}
+            
             <span className="text-foreground font-bold">
               {balance.toFixed(4)}{" "}
               {type === "from" ? fromToken : toToken || "--"}

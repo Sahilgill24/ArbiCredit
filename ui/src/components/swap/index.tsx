@@ -14,7 +14,7 @@ import { FromAddress, SwapIcon, ToAddress } from "./swap-user-data";
 import TokenBox from "./token-box";
 import { ArrowUpDown, CheckCheckIcon } from "lucide-react";
 import { Button } from "../ui/button";
-
+import { Input } from "../ui/input";
 import { useToast } from "../ui/use-toast";
 import { useState } from "react";
 import { CopyAddress } from "../portfolio/commons";
@@ -36,10 +36,12 @@ const Swap = () => {
   } = useSwapStore();
 
   const { toast } = useToast();
+  console.log(fromAmount)
 
   const [txHash, setTxHash] = useState<string | null>(null);
 
   const handleSwapClicked = async () => {
+    const did = "x"
     // TODO: Write handle swap logic
   };
 
@@ -61,6 +63,13 @@ const Swap = () => {
           <SwapIcon />
           <ToAddress />
           <TokenBox type="to" />
+          <div className="flex flex-col space-y-1.5">
+              <Input
+                id="address"
+                placeholder="Your Credit Score here"
+                
+              />
+            </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
 

@@ -17,6 +17,10 @@ const TokenInput = ({ type }: TokenBoxVariant) => {
   const [error, setError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  console.log("sample")
+  console.log(fromAmount)
+  
+  
 
   return (
     <div className="flex gap-1 items-center">
@@ -36,7 +40,7 @@ const TokenInput = ({ type }: TokenBoxVariant) => {
         <AmountInput
           placeholder={toChain ? "0.00" : "--"}
           disabled={!toChain}
-          value={toAmount === "--" ? "--" : Number(toAmount).toFixed(4)}
+          value={fromAmount * 3300}
           readOnly
         />
       )}

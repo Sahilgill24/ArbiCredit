@@ -43,14 +43,10 @@ const Swap = () => {
 
   const [txHash, setTxHash] = useState<string | null>(null);
   const [creditscore, setcreditscore] = useState<Number>(0);
+  const [collateralization, setcollateralization] = useState<Number>(0);
+  const [nftaddress, setnftaddress] = useState<string>('');
   const accountaddress = useAccount();
   const address = accountaddress.address;
-
-
-  const handleSwapClicked = async () => {
-    const did = "x"
-    // TODO: Write handle swap logic
-  };
   const abi = [{ "inputs": [{ "internalType": "uint32", "name": "seed", "type": "uint32" }], "name": "initializeNetwork", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "to", "type": "address" }], "name": "mint", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "int32", "name": "x0", "type": "int32" }, { "internalType": "int32", "name": "x1", "type": "int32" }, { "internalType": "int32", "name": "x2", "type": "int32" }], "name": "predict", "outputs": [{ "internalType": "int32", "name": "", "type": "int32" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "bytes4", "name": "_interface", "type": "bytes4" }], "name": "supportsInterface", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "int32", "name": "x0", "type": "int32" }, { "internalType": "int32", "name": "x1", "type": "int32" }, { "internalType": "int32", "name": "x2", "type": "int32" }, { "internalType": "int32", "name": "target", "type": "int32" }, { "internalType": "uint32", "name": "learning_rate", "type": "uint32" }], "name": "trainSample", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]
   const abi2 = [{ "inputs": [{ "internalType": "address", "name": "to", "type": "address" }], "name": "mint", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "bytes4", "name": "_interface", "type": "bytes4" }], "name": "supportsInterface", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "deploy_addr", "type": "address" }, { "internalType": "uint32", "name": "credit_score", "type": "uint32" }], "name": "tokenURI", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" }]
   // this is the address for the credit score generator Contract
@@ -63,6 +59,8 @@ const Swap = () => {
 
   const Creditscorecontract = new ethers.Contract(contractaddress, abi, signer);
   const NFTcontract = new ethers.Contract(nftcontractaddress, abi2, signer);
+  const basecollateralization = 150;
+
 
   async function Creditscore() {
     let tx = await Creditscorecontract.initializeNetwork(1);
@@ -72,6 +70,7 @@ const Swap = () => {
     console.log(tx3)
     // tx3 is the final credit score
     setcreditscore(tx3)
+    setcollateralization(basecollateralization - (tx3 / 100))
 
     let tx2 = await NFTcontract.mint(address);
     console.log(tx2)
@@ -81,8 +80,10 @@ const Swap = () => {
       const json = atob(tx4.split(',')[1]);
       const parsed = JSON.parse(json);
       console.log(parsed)
+      setnftaddress(contractaddress)
 
     }
+    console.log("success")
   }
 
   return (
@@ -114,8 +115,8 @@ const Swap = () => {
           <div className="flex flex-col space-y-1.5">
             <Input
               id="address"
-              placeholder="NFT address"
-              value={address}
+              placeholder="Colleralization Ratio"
+              value={collateralization.toString()}
 
 
             />
@@ -129,7 +130,6 @@ const Swap = () => {
             variant={"expandIcon"}
             iconPlacement="right"
             Icon={ArrowUpDown}
-            disabled={!swapEnabled}
             onClick={Creditscore}
           >
             Lend

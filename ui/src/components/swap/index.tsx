@@ -64,12 +64,20 @@ const Swap = () => {
           <ToAddress />
           <TokenBox type="to" />
           <div className="flex flex-col space-y-1.5">
-              <Input
-                id="address"
-                placeholder="Your Credit Score here"
-                
-              />
-            </div>
+            <Input
+              id="address"
+              placeholder="Your Credit Score here"
+
+            />
+          </div>
+          <div className="flex flex-col space-y-1.5">
+            <Input
+              id="address"
+              placeholder="NFT address"
+              
+
+            />
+          </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
 

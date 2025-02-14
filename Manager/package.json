@@ -1,0 +1,17 @@
+{
+  "name": "manager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@coinbase/agentkit": "^0.1.2",
+    "@pythnetwork/client": "^2.22.1",
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.5"
+  }
+}

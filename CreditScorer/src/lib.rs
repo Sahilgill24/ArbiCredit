@@ -132,15 +132,13 @@ impl CreditScorer {
         result
     }
 
-    /// Train the network on a single sample using one step of gradient descent.
-    ///
-    /// - The inputs (x0, x1, x2) are expected to be scaled by SCALE (e.g. 1.0 = 1000).
-    /// - `target` is the desired output (scaled by SCALE).
-    /// - `learning_rate` is given as a percentage (0–100).
+    // Train the network on a single sample using one step of gradient descent.
+    // The inputs (x0, x1, x2) are the Repayment ratio, total loans and the total liquidations
+    // scale them to a 1000 , for giving input here
     pub fn train_sample(&mut self, x0: i32, x1: i32, x2: i32, target: i32, learning_rate: u32) {
         let input: [i32; INPUT_SIZE] = [x0, x1, x2];
 
-        // --- Forward pass: compute hidden layer (pre‑activation and activation) ---
+        // Forward pass: compute hidden layer (pre‑activation and activation)
         let mut hidden_pre: [i32; HIDDEN_SIZE] = [0; HIDDEN_SIZE];
         let mut hidden: [i32; HIDDEN_SIZE] = [0; HIDDEN_SIZE];
         for j in 0..HIDDEN_SIZE {
@@ -151,11 +149,10 @@ impl CreditScorer {
                 sum += (weight * input[i]) / SCALE;
             }
             hidden_pre[j] = sum;
-            // ReLU activation.
+            // ReLU
             hidden[j] = if sum > 0 { sum } else { 0 };
         }
 
-        // --- Compute output layer ---
         let mut output: [i32; OUTPUT_SIZE] = [0; OUTPUT_SIZE];
         for k in 0..OUTPUT_SIZE {
             let bias = self.bias_o.get(k).unwrap().as_i32();
@@ -166,11 +163,9 @@ impl CreditScorer {
             }
             output[k] = sum;
         }
-
-        // --- Compute error (for our single output neuron) ---
         let error = output[0] - target;
 
-        // --- Backpropagation: update hidden-to-output weights and bias ---
+        // Backpropagation: update hidden-to-output weights and bias
         for j in 0..HIDDEN_SIZE {
             // Gradient for weight from hidden[j] to output:
             let grad = (error * hidden[j]) / SCALE;
@@ -192,7 +187,7 @@ impl CreditScorer {
             .unwrap()
             .set(I32::unchecked_from(new_bias_o));
 
-        // --- Backpropagate to hidden layer ---
+        // Backpropagate to hidden layer
         let mut delta_hidden: [i32; HIDDEN_SIZE] = [0; HIDDEN_SIZE];
         for j in 0..HIDDEN_SIZE {
             // Derivative of ReLU: 1 if pre-activation > 0, else 0.
@@ -202,7 +197,7 @@ impl CreditScorer {
             delta_hidden[j] = derivative * (error * weight_ho) / SCALE;
         }
 
-        // --- Update input-to-hidden weights and hidden biases ---
+        // Update input-to-hidden weights and hidden biases
         for j in 0..HIDDEN_SIZE {
             for i in 0..INPUT_SIZE {
                 let grad = (delta_hidden[j] * input[i]) / SCALE;

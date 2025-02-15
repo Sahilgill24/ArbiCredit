@@ -1,38 +1,27 @@
 ## ArbiCredit 
 
 
-<center>My project for the Safe-Agentathon for the Arbitrum stylus track and DefaI Agent track . </center>
+Our platform redefines digital lending by integrating an on-chain AI agent built using Arbitrum Stylus, which generates dynamic credit scores and allocates collateral based on real-time data. Each user receives an NFT encapsulating their credit profile and collateral details, ensuring transparency and trust throughout the lending process. Additionally, by leveraging Coinbase's Agent Kit, our system proactively manages token movements during sudden market shifts to protect against volatility.
+
 
 <center><img src='./images/2.png'></center>
 
-Our platform redefines digital lending by integrating an on-chain AI agent built using Arbitrum Stylus, which generates dynamic credit scores and allocates collateral based on real-time data. Each user receives an NFT encapsulating their credit profile and collateral details, ensuring transparency and trust throughout the lending process. Additionally, by leveraging Coinbase's Agent Kit, our system proactively manages token movements during sudden market shifts to protect against volatility.
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Key Features](#key-features)
-- [How It Works](#how-it-works)
-- [Challenges Encountered](#challenges-encountered)
-- [Best DeFi Agent on Arbitrum](#best-defi-agent-on-arbitrum)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 
 ## Overview
 
+<img src='./images/3.png'>
+
 Our platform automates lending by integrating:
-- **Instant Credit Assessment:** On-chain AI generates real-time credit scores.
+- **Instant Credit Assessment:** On-chain AI <b>Neural Network</b> generates a real-time credit scores.
 - **NFT-Backed Digital Identity:** Immutable NFTs capture each user's credit and collateral data.
 - **Dynamic Collateral Management:** Automated adjustments based on market conditions.
 - **Automated Risk Mitigation:** Real-time monitoring and liquidation to safeguard assets.
-- **DefAI Integration:** Coinbase's Agent Kit ensures swift token management during market volatility.
+- **DefAI Integration:** Agent Kit ensures swift token management during market volatility.
 
-## Key Features
+## sFeatures
 
 - **Instant Credit Scoring:**  
-  The on-chain AI agent processes real-time data to generate a unique credit score for each user, eliminating delays associated with traditional credit checks.
+  The on-chain Neural Network based AI agent processes real-time data to generate a unique credit score for each user, eliminating delays associated with traditional credit checks.
 
 - **NFT-Backed Trust:**  
   Minted NFTs represent a user's credit and collateral profile, creating a secure, immutable record that enhances transparency.
@@ -43,22 +32,76 @@ Our platform automates lending by integrating:
 - **Automated Risk Management:**  
   Our integrated CDP agent kit continuously monitors token prices. In the event of a significant price drop, it automatically liquidates a portion of the collateral to manage risk.
 
-- **DefAI & Token Movement:**  
-  Using Coinbase's Agent Kit, the platform swiftly moves tokens in response to market fluctuations, ensuring liquidity is maintained even during volatile periods.
+## Architecture
 
-## How It Works
+<img src='./images/6.png'>
 
-1. **Credit Scoring:**  
-   The AI agent evaluates real-time data to generate a credit score for each borrower, which determines the necessary collateral.
+``` 
+Stylus Contract Addresses on Sepolia
 
-2. **Collateral Allocation:**  
-   Based on the credit score, the platform assigns and secures collateral, then mints an NFT representing the user's credit profile and collateral details.
+CreditScorer : 0xB53E69dCF35E0b9789B5a9e64685244b1Ccced33  
+NFTCredit : 0x3b192B43bB38C9a48be7110ef5763AebA405B150
+```
 
-3. **Risk Monitoring & Management:**  
-   The CDP agent kit monitors token prices continuously. If a significant drop is detected, the system triggers automated liquidations to rebalance collateral levels.
+### User
+- **Description**: The user interacts with the Arbi-Credit platform by providing relevant financial data (repayment history, liquidation events, loan amounts).
+- **Key Responsibilities**:
+  - Initiates the credit-scoring process.
+  - Supplies collateral as required.
+  - Receives the NFT credit score token.
 
-4. **DefAI Integration:**  
-   Leveraging Coinbase's Agent Kit, the platform ensures that token transfers occur seamlessly and promptly during sudden market movements, maintaining system stability.
+### CreditScorer
+- **Description**: A stylus neural network terminal or an on-chain agent that aggregates and analyzes user data to determine a credit score.
+- **Key Responsibilities**:
+  - Uses user’s repayment ratio, liquidation history, and total loan data to calculate a score.
+  - Writes the credit score to the chain.
+
+### Lending Contract
+- **Description**: A smart contract that handles the lending and borrowing operations, enforcing collateral requirements.
+- **Key Responsibilities**:
+  - Receives the user’s collateral.
+  - Executes the loan process based on the assigned credit score.
+  - Interacts with the user’s wallet and manages funds.
+
+### NFTCreditScore
+- **Description**: A contract that mints an NFT containing the user’s credit score data.
+- **Key Responsibilities**:
+  - Generates an NFT for each user once their credit score is finalized.
+  - Stores relevant score metadata (repayment ratio, loan details, etc.) on-chain or via decentralized storage.
+
+### Manager (Agent Kit)
+- **Description**: A decentralized agent or bot that monitors collateral health and triggers liquidations when necessary.
+- **Key Responsibilities**:
+  - Continuously checks the price of deposited tokens.
+  - Initiates liquidation if collateral value falls below the threshold.
+  - Maintains stable operations by enforcing risk management rules.
+
+### Data Flow
+
+<img src='./images/5.png'>
+
+1. **User Data Submission**  
+   - The user provides on-chain history or allows the CreditScorer to query their repayment ratio, total liquidations, and total loans.
+
+2. **Credit Score Computation**  
+   - The CreditScorer (neural network/agent) processes the user data and calculates a numerical credit score.
+
+3. **Collateral Assignment**  
+   - Based on the credit score, the system determines how much collateral the user must deposit to secure a loan.
+
+4. **Lending & Borrowing**  
+   - The user deposits collateral into the Lending Contract.
+   - The Lending Contract enables the user to borrow tokens or assets up to a limit set by their credit score.
+
+5. **NFT Minting**  
+   - Once the credit score is finalized, the NFTCreditScore contract mints an NFT representing the user’s credit score.
+   - This NFT can be stored in the user’s wallet and used to prove their creditworthiness.
+
+6. **Collateral Monitoring & Liquidation**  
+   - The Manager (Agent Kit) keeps track of the collateral’s value in real time.
+   - If the collateral value drops below the required ratio, the Manag
+
+
 
 ## Challenges Encountered
 
@@ -71,15 +114,15 @@ Our platform automates lending by integrating:
 - **Managing Liquidity Amid Price Fluctuations:**  
   Continuous monitoring of token prices is critical. Our system had to be robust enough to handle rapid market changes and execute timely liquidations, ensuring liquidity and stability for both borrowers and lenders.
 
-## Best DeFi Agent on Arbitrum
 
-This project sets a new benchmark for DeFi on Arbitrum by seamlessly integrating advanced DefAI technology. Leveraging Coinbase's Agent Kit, our platform proactively moves tokens in real-time during sudden price drops, ensuring dynamic collateral adjustments. This rapid response mechanism, combined with automated AI-driven decision-making, makes our platform one of the best DefAI agents on Arbitrum—delivering secure, efficient, and adaptive financial solutions.
+## Future 
 
-## Installation
+- **Merkle tree:**
+  Trying to implement a merkle tree storage for the User's data which would make it private as well as would 
+  be more efficient time complexity wise 
 
-To deploy and run this project locally, follow these steps:
+- **Twitter:** 
+  Using Agent kit's twitter functionality to check the meta-data of the twitter account of the user , which would help in checking the User's idendity and also in generating the Credit Score . 
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
+- **Dynamic on-chain collateralizer:**
+  An on-chain Agent which excess the price feed data and Credit score of the user to give the Collateral based on the real time 

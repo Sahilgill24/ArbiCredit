@@ -1,12 +1,9 @@
 # ArbiCredit 
 
 
-<center><img src='./images/2.png'></center>
+<Center><img src='./images/2.png'>
 
-<center>Our platform redefines digital lending by integrating an on-chain AI agent built using Arbitrum Stylus, which generates dynamic credit scores and allocates collateral based on real-time data. Each user receives an NFT encapsulating their credit profile and collateral details, ensuring transparency and trust throughout the lending process. Additionally, by leveraging Coinbase's Agent Kit, our system proactively manages token movements during sudden market shifts to protect against volatility.
-
-
-
+<Center>Our platform redefines digital lending by integrating an on-chain AI agent built using Arbitrum Stylus, which generates dynamic credit scores and allocates collateral based on real-time data. Each user receives an NFT encapsulating their credit profile and collateral details, ensuring transparency and trust throughout the lending process. Additionally, by leveraging Coinbase's Agent Kit, our system proactively manages token movements during sudden market shifts to protect against volatility.
 
 
 ## Overview
@@ -20,7 +17,7 @@ Our platform automates lending by integrating:
 - **Automated Risk Mitigation:** Real-time monitoring and liquidation to safeguard assets.
 - **DefAI Integration:** Agent Kit ensures swift token management during market volatility.
 
-## sFeatures
+## Features
 
 - **Instant Credit Scoring:**  
   The on-chain Neural Network based AI agent processes real-time data to generate a unique credit score for each user, eliminating delays associated with traditional credit checks.

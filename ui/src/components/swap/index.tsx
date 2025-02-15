@@ -36,6 +36,8 @@ const Swap = () => {
     setSwapEnabled,
     isLoading,
     setIsLoading,
+    setToAmount,
+    toAmount
   } = useSwapStore();
 
   const { toast } = useToast();
@@ -43,7 +45,7 @@ const Swap = () => {
 
   const [txHash, setTxHash] = useState<string | null>(null);
   const [creditscore, setcreditscore] = useState<Number>(0);
-  const [collateralization, setcollateralization] = useState<Number>(0);
+  const [collateralization, setcollateralization] = useState<number>(0);
   const [nftaddress, setnftaddress] = useState<string>('');
   const accountaddress = useAccount();
   const address = accountaddress.address;
@@ -71,6 +73,9 @@ const Swap = () => {
     // tx3 is the final credit score
     setcreditscore(tx3)
     setcollateralization(basecollateralization - (tx3 / 100))
+    const toamountnum = parseInt(toAmount)
+    const final = toamountnum * collateralization / 100;
+    setToAmount(final.toString());
 
     let tx2 = await NFTcontract.mint(address);
     console.log(tx2)
@@ -85,6 +90,7 @@ const Swap = () => {
     }
     console.log("success")
   }
+
 
   return (
     <div className="*:w-[480px] mx-auto relative overflow-hidden">
